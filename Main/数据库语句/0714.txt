@@ -1,0 +1,1193 @@
+IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'RuiLiMdlDb')
+	DROP DATABASE [RuiLiMdlDb]
+GO
+
+CREATE DATABASE [RuiLiMdlDb]  ON (NAME = N'RuiLiMdlDb_Data', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL\data\RuiLiMdlDb_Data.MDF' , SIZE = 2, FILEGROWTH = 10%) LOG ON (NAME = N'RuiLiMdlDb_Log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL\data\RuiLiMdlDb_Log.LDF' , SIZE = 6, FILEGROWTH = 10%)
+ COLLATE Chinese_PRC_CI_AS
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'autoclose', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'bulkcopy', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'trunc. log', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'torn page detection', N'true'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'read only', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'dbo use', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'single', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'autoshrink', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'ANSI null default', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'recursive triggers', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'ANSI nulls', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'concat null yields null', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'cursor close on commit', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'default to local cursor', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'quoted identifier', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'ANSI warnings', N'false'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'auto create statistics', N'true'
+GO
+
+exec sp_dboption N'RuiLiMdlDb', N'auto update statistics', N'true'
+GO
+
+use [RuiLiMdlDb]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[delete_ins]') and OBJECTPROPERTY(id, N'IsTrigger') = 1)
+drop trigger [dbo].[delete_ins]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[delete_mdl]') and OBJECTPROPERTY(id, N'IsTrigger') = 1)
+drop trigger [dbo].[delete_mdl]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[delete_rv]') and OBJECTPROPERTY(id, N'IsTrigger') = 1)
+drop trigger [dbo].[delete_rv]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[AsmInsInfoTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[AsmInsInfoTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[AsmInsVariantTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[AsmInsVariantTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[AsmMakeupTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[AsmMakeupTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[AsmManageTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[AsmManageTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[AsmPerformanceInsTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[AsmPerformanceInsTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[AsmPerformanceTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[AsmPerformanceTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[AsmPic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[AsmPic]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[AsmRelationTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[AsmRelationTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[AsmRelativeDimParaTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[AsmRelativeDimParaTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[AsmVariantTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[AsmVariantTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[MapcodeInfoTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[MapcodeInfoTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PartInsTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PartInsTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PartInstanceTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PartInstanceTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PartManageTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PartManageTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PartRelativeDimParaTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PartRelativeDimParaTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[Part_Temp_Mdl_Info]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[Part_Temp_Mdl_Info]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[Part_Temp_Para_Info]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[Part_Temp_Para_Info]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[Part_Temp_Perf]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[Part_Temp_Perf]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[Part_Temp_Pic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[Part_Temp_Pic]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[Part_Temp_Rel]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[Part_Temp_Rel]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PerformeInsTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PerformeInsTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[ProductInstanceTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[ProductInstanceTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[ProductMakeupTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[ProductMakeupTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[ProductManageTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[ProductManageTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[ProductTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[ProductTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partDrawing]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partDrawing]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partInsPerfValueTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partInsPerfValueTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partInsValueTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partInsValueTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partPerfparaTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partPerfparaTable]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partPic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partPic]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partRelationSet]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partRelationSet]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partVariantTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partVariantTable]
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'aspx')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'aspx', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'cbs')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'cbs', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'fat')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'fat', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'fat', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'hqy')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'user_db', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'hqy', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'hxyy')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'hxyy', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'ibucmcourse')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'ibucmcourse', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'myhomeAdmin')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'myhomeAdmin', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'net')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'net', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'NewIbucmAdmin')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'NewIbucmAdmin', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'ng')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'ng', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'PDM')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'PDM', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'scm')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'asp', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'scm', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'SunWindCityAdmin')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'SunWindCityAdmin', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'tree')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'tree', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'tree', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'web')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'web', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'web', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'xd')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'xd', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'xiao')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'master', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'xiao', null, @logindb, @loginlang
+END
+GO
+
+if not exists (select * from master.dbo.syslogins where loginname = N'xzqh')
+BEGIN
+	declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'yuanshi', @loginlang = N'简体中文'
+	if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+		select @logindb = N'master'
+	if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+		select @loginlang = @@language
+	exec sp_addlogin N'xzqh', null, @logindb, @loginlang
+END
+GO
+
+exec sp_addsrvrolemember N'cbs', sysadmin
+GO
+
+exec sp_addsrvrolemember N'fat', sysadmin
+GO
+
+exec sp_addsrvrolemember N'PDM', sysadmin
+GO
+
+exec sp_addsrvrolemember N'scm', sysadmin
+GO
+
+exec sp_addsrvrolemember N'web', sysadmin
+GO
+
+exec sp_addsrvrolemember N'xd', sysadmin
+GO
+
+exec sp_addsrvrolemember N'xiao', sysadmin
+GO
+
+exec sp_addsrvrolemember N'cbs', securityadmin
+GO
+
+exec sp_addsrvrolemember N'PDM', securityadmin
+GO
+
+exec sp_addsrvrolemember N'xd', securityadmin
+GO
+
+exec sp_addsrvrolemember N'xiao', securityadmin
+GO
+
+exec sp_addsrvrolemember N'cbs', serveradmin
+GO
+
+exec sp_addsrvrolemember N'PDM', serveradmin
+GO
+
+exec sp_addsrvrolemember N'web', serveradmin
+GO
+
+exec sp_addsrvrolemember N'xd', serveradmin
+GO
+
+exec sp_addsrvrolemember N'xiao', serveradmin
+GO
+
+exec sp_addsrvrolemember N'cbs', setupadmin
+GO
+
+exec sp_addsrvrolemember N'PDM', setupadmin
+GO
+
+exec sp_addsrvrolemember N'xd', setupadmin
+GO
+
+exec sp_addsrvrolemember N'xiao', setupadmin
+GO
+
+exec sp_addsrvrolemember N'cbs', processadmin
+GO
+
+exec sp_addsrvrolemember N'PDM', processadmin
+GO
+
+exec sp_addsrvrolemember N'xd', processadmin
+GO
+
+exec sp_addsrvrolemember N'xiao', processadmin
+GO
+
+exec sp_addsrvrolemember N'cbs', diskadmin
+GO
+
+exec sp_addsrvrolemember N'PDM', diskadmin
+GO
+
+exec sp_addsrvrolemember N'xd', diskadmin
+GO
+
+exec sp_addsrvrolemember N'xiao', diskadmin
+GO
+
+exec sp_addsrvrolemember N'cbs', dbcreator
+GO
+
+exec sp_addsrvrolemember N'PDM', dbcreator
+GO
+
+exec sp_addsrvrolemember N'xd', dbcreator
+GO
+
+exec sp_addsrvrolemember N'xiao', dbcreator
+GO
+
+exec sp_addsrvrolemember N'cbs', bulkadmin
+GO
+
+exec sp_addsrvrolemember N'PDM', bulkadmin
+GO
+
+exec sp_addsrvrolemember N'xd', bulkadmin
+GO
+
+exec sp_addsrvrolemember N'xiao', bulkadmin
+GO
+
+if not exists (select * from dbo.sysusers where name = N'cbs' and uid < 16382)
+	EXEC sp_grantdbaccess N'cbs', N'cbs'
+GO
+
+GRANT  CREATE FUNCTION ,  CREATE TABLE ,  CREATE VIEW ,  CREATE PROCEDURE ,  DUMP DATABASE ,  CREATE DEFAULT ,  DUMP TRANSACTION ,  CREATE RULE  TO [cbs]
+GO
+
+exec sp_addrolemember N'db_accessadmin', N'cbs'
+GO
+
+exec sp_addrolemember N'db_backupoperator', N'cbs'
+GO
+
+exec sp_addrolemember N'db_datareader', N'cbs'
+GO
+
+exec sp_addrolemember N'db_datawriter', N'cbs'
+GO
+
+exec sp_addrolemember N'db_ddladmin', N'cbs'
+GO
+
+exec sp_addrolemember N'db_denydatareader', N'cbs'
+GO
+
+exec sp_addrolemember N'db_denydatawriter', N'cbs'
+GO
+
+exec sp_addrolemember N'db_owner', N'cbs'
+GO
+
+exec sp_addrolemember N'db_securityadmin', N'cbs'
+GO
+
+CREATE TABLE [dbo].[AsmInsInfoTable] (
+	[AsmNum] [int] NOT NULL ,
+	[InsNum] [int] NOT NULL ,
+	[InsName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[InsCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[InsCreateTime] [datetime] NULL ,
+	[InsCreaterName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[InsCreateDpt] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[InsNote] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[AsmInsVariantTable] (
+	[AsmNum] [int] NOT NULL ,
+	[InsNum] [int] NOT NULL ,
+	[Num] [int] NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[AsmMakeupTable] (
+	[AsmNum] [int] NOT NULL ,
+	[PartNum] [int] NOT NULL ,
+	[PartMdlNum] [int] NOT NULL ,
+	[Type] [char] (3) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[UpMdlNum] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[FileName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Code] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[AsmManageTable] (
+	[Number] [int] IDENTITY (1, 1) NOT NULL ,
+	[FatherNumber] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Type] [char] (3) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[MdlCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Datatime] [datetime] NULL ,
+	[FileName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[FileDirectory] [varchar] (200) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[MdlerName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[MdlerDepartment] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[AsmPerformanceInsTable] (
+	[AsmlNum] [int] NOT NULL ,
+	[InsNum] [int] NOT NULL ,
+	[Num] [int] NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[AsmPerformanceTable] (
+	[AsmNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[AsmPic] (
+	[AsmNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[IsMain] [int] NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[AsmRelationTable] (
+	[AsmNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Relation] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[AsmRelativeDimParaTable] (
+	[ProductMdlNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[PostNum] [int] NOT NULL ,
+	[Type] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[IdNum] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimSymbol] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[SubType] [char] (10) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[AsmVariantTable] (
+	[AsmNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[PostVariant] [int] NOT NULL ,
+	[Type] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[IdNum] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimSymbol] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[ParaFeatName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[SubType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[UpLimit] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[DwLimit] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[MapcodeInfoTable] (
+	[MapInfo] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[ModelNum] [int] NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[ModelType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[SavePlace] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Designer] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Remark] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[PartInsTable] (
+	[PrtNum] [int] NOT NULL ,
+	[InsNum] [int] NOT NULL ,
+	[InsName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[InsCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[InsNote] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[InsCreateTime] [datetime] NULL ,
+	[InsCreaterName] [varchar] (30) COLLATE Chinese_PRC_CI_AS NULL ,
+	[InsCreateDpt] [varchar] (30) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[PartInstanceTable] (
+	[ProductMap] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[PartMap] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimenNum] [int] NOT NULL ,
+	[DimenName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimenValue] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimenType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[PartManageTable] (
+	[Number] [int] IDENTITY (1, 1) NOT NULL ,
+	[FatherNumber] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Type] [char] (3) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Datatime] [datetime] NOT NULL ,
+	[MdlCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[FileName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[FileDirectory] [varchar] (200) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[MdlerName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[MdlerDepartment] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[PartRelativeDimParaTable] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Type] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[IdNum] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimSymbol] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[SubType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Part_Temp_Mdl_Info] (
+	[Number] [int] IDENTITY (1, 1) NOT NULL ,
+	[FatherNum] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Type] [char] (3) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Datatime] [datetime] NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[FileName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[FileDirectory] [varchar] (200) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[MdlerName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[MdlerDepartment] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[MdlFatherNum] [int] NULL ,
+	[MdlCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[MdlType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Part_Temp_Para_Info] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Type] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[IdNum] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimSymbol] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[ParaFeatName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[SubType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[UpLimit] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[DwLimit] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Part_Temp_Perf] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Part_Temp_Pic] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[IsMain] [int] NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Part_Temp_Rel] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Relation] [varchar] (100) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[PerformeInsTable] (
+	[MapCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[PerfValue] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Note] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[ProductInstanceTable] (
+	[ProductMap] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimenNum] [int] NOT NULL ,
+	[DimenName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimenValue] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[ProductMakeupTable] (
+	[ProductMap] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[PartMap] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[AssMap] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Remark] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[BorrowFrom] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[ProductManageTable] (
+	[ModelNum] [int] NOT NULL ,
+	[FatherNum] [int] NOT NULL ,
+	[ProductName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Type] [char] (10) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[ModelCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[CreateDate] [datetime] NULL ,
+	[FileName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DirectoryName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Creator] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[CreateDepartment] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[ProductTable] (
+	[ProductMap] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[ModelNumFrom] [int] NOT NULL ,
+	[ProductName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[GroupFrom] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[StandFrom] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[ModelCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[partDrawing] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[FileName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[partInsPerfValueTable] (
+	[PrtNum] [int] NOT NULL ,
+	[InsNum] [int] NOT NULL ,
+	[Num] [int] NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[partInsValueTable] (
+	[PrtNum] [int] NOT NULL ,
+	[InsNum] [int] NOT NULL ,
+	[Num] [int] NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[partPerfparaTable] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[partPic] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[IsMain] [int] NOT NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[partRelationSet] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Relation] [varchar] (100) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[partVariantTable] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Type] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[IdNum] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimSymbol] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[ParaFeatName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[SubType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[UpLimit] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[DwLimit] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[AsmMakeupTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_AsmMakeupTable] PRIMARY KEY  CLUSTERED 
+	(
+		[AsmNum],
+		[PartNum]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[AsmManageTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_AsmManageTable] PRIMARY KEY  CLUSTERED 
+	(
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[AsmPerformanceTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_AsmPerformanceTable] PRIMARY KEY  CLUSTERED 
+	(
+		[AsmNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[AsmRelationTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_AsmRelationTable] PRIMARY KEY  CLUSTERED 
+	(
+		[AsmNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[AsmVariantTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_AsmVariantTable] PRIMARY KEY  CLUSTERED 
+	(
+		[AsmNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[MapcodeInfoTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_MapcodeInfo] PRIMARY KEY  CLUSTERED 
+	(
+		[MapInfo]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[PartInsTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_PartInsTable] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[InsNum]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[PartInstanceTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_PartInstanceTable] PRIMARY KEY  CLUSTERED 
+	(
+		[ProductMap],
+		[PartMap],
+		[DimenNum]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[PartManageTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_PartManageTable] PRIMARY KEY  CLUSTERED 
+	(
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[PartRelativeDimParaTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_PartRelativeDimParaTable] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[Part_Temp_Mdl_Info] WITH NOCHECK ADD 
+	CONSTRAINT [PK_Part_Temp_Mdl_Info] PRIMARY KEY  CLUSTERED 
+	(
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[Part_Temp_Para_Info] WITH NOCHECK ADD 
+	CONSTRAINT [PK_Part_Temp_Para_Info] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[Part_Temp_Perf] WITH NOCHECK ADD 
+	CONSTRAINT [PK_Part_Temp_Perf] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[Part_Temp_Pic] WITH NOCHECK ADD 
+	CONSTRAINT [PK_Part_Temp_Pic] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[Part_Temp_Rel] WITH NOCHECK ADD 
+	CONSTRAINT [PK_Part_Temp_Rel] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[PerformeInsTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_PerformeInsTable] PRIMARY KEY  CLUSTERED 
+	(
+		[MapCode],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[ProductInstanceTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_ProductInstanceTable] PRIMARY KEY  CLUSTERED 
+	(
+		[ProductMap],
+		[DimenNum]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[ProductMakeupTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_ProductMakeupTable] PRIMARY KEY  CLUSTERED 
+	(
+		[ProductMap],
+		[PartMap]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[ProductTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_ProductTable] PRIMARY KEY  CLUSTERED 
+	(
+		[ProductMap]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[partDrawing] WITH NOCHECK ADD 
+	CONSTRAINT [PK_partDrawing] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[Number],
+		[FileName]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[partInsPerfValueTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_partInsPerfValueTable] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[InsNum],
+		[Num]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[partInsValueTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_partInsValueTable] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[InsNum],
+		[Num]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[partPerfparaTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_partPerfparaTable] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[partPic] WITH NOCHECK ADD 
+	CONSTRAINT [PK_partPic] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[partRelationSet] WITH NOCHECK ADD 
+	CONSTRAINT [PK_partRelationSet] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[partVariantTable] WITH NOCHECK ADD 
+	CONSTRAINT [PK_partVariantTable] PRIMARY KEY  CLUSTERED 
+	(
+		[PrtNum],
+		[Number]
+	)  ON [PRIMARY] 
+GO
+
+ALTER TABLE [dbo].[AsmMakeupTable] WITH NOCHECK ADD 
+	CONSTRAINT [DF_AsmMakeupTable_PartMdlNum] DEFAULT ((-1)) FOR [PartMdlNum],
+	CONSTRAINT [DF_AsmMakeupTable_Type] DEFAULT ('prt') FOR [Type],
+	CONSTRAINT [CK_AsmMakeupTable] CHECK ([Type] = 'prt' or [Type] = 'asm')
+GO
+
+ALTER TABLE [dbo].[AsmManageTable] WITH NOCHECK ADD 
+	CONSTRAINT [DF_AsmManageTable_Type] DEFAULT ('typ') FOR [Type],
+	CONSTRAINT [CK_AsmManageTable] CHECK ([Type] = 'typ' or [Type] = 'mdl')
+GO
+
+ALTER TABLE [dbo].[PartManageTable] WITH NOCHECK ADD 
+	CONSTRAINT [DF_PartManageTable_FatherNumber] DEFAULT (0) FOR [FatherNumber],
+	CONSTRAINT [DF_PartManageTable_Type] DEFAULT ('typ') FOR [Type],
+	CONSTRAINT [CK_PartManageTable_1] CHECK ([Type] = 'mdl' or [Type] = 'typ')
+GO
+
+ALTER TABLE [dbo].[Part_Temp_Mdl_Info] WITH NOCHECK ADD 
+	CONSTRAINT [DF_Part_Temp_Mdl_Info_Type] DEFAULT ('mdl') FOR [Type],
+	CONSTRAINT [CK_Part_Temp_Mdl_Info] CHECK ([Type] = 'mdl' or [Type] = 'wrk')
+GO
+
+ALTER TABLE [dbo].[partPic] WITH NOCHECK ADD 
+	CONSTRAINT [DF_partPic_IsMain] DEFAULT (0) FOR [IsMain],
+	CONSTRAINT [CK_partPic] CHECK ([IsMain] = 0 or [IsMain] = 1)
+GO
+
+ CREATE  INDEX [IX_PartManageTable] ON [dbo].[PartManageTable]([Number]) ON [PRIMARY]
+GO
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS ON 
+GO
+
+CREATE TRIGGER delete_ins ON [dbo].[PartInsTable] 
+FOR  DELETE 
+AS
+DELETE FROM [partInsPerfValueTable] WHERE [partInsPerfValueTable].[PrtNum]=(select PrtNum from deleted) and [partInsPerfValueTable].[InsNum]=(select InsNum from deleted);
+DELETE FROM [partInsValueTable] WHERE [partInsValueTable].[PrtNum]=(select PrtNum from deleted) and [partInsValueTable].[InsNum]=(select InsNum from deleted);
+GO
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS ON 
+GO
+
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS ON 
+GO
+
+CREATE TRIGGER delete_mdl  ON [dbo].[PartManageTable] 
+FOR DELETE 
+AS
+DELETE FROM [[PartManageTable] WHERE [[PartManageTable].[FatherNumber] IN (select number from deleted);
+DELETE FROM [partVariantTable] WHERE [partVariantTable].[PrtNum] IN(select number from deleted);
+DELETE FROM [partRelativeDimParaTable] WHERE [partRelativeDimParaTable].[PrtNum] IN(select number from deleted);
+DELETE FROM [partRelationSet] WHERE [partRelationSet].[PrtNum] IN(select number from deleted);
+DELETE FROM [partPic] WHERE [partPic].[PrtNum] IN(select number from deleted);
+DELETE FROM [partPerfparaTable] WHERE [partPerfparaTable].[PrtNum] IN(select number from deleted);
+DELETE FROM [partDrawing] WHERE [partDrawing].[PrtNum] IN(select number from deleted);
+DELETE FROM [partInsTable] WHERE [partInsTable].[PrtNum] IN(select number from deleted);
+
+
+
+
+
+GO
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS ON 
+GO
+
+SET QUOTED_IDENTIFIER ON 
+GO
+SET ANSI_NULLS ON 
+GO
+
+CREATE TRIGGER delete_rv ON dbo.Part_Temp_Mdl_Info 
+FOR DELETE 
+AS
+DELETE FROM [Part_Temp_Para_Info] WHERE [Part_Temp_Para_Info] .[PrtNum] IN (select number from deleted);
+DELETE FROM [Part_Temp_Perf] WHERE [Part_Temp_Perf] .[PrtNum] IN (select number from deleted);
+DELETE FROM [Part_Temp_Pic] WHERE [Part_Temp_Pic] .[PrtNum] IN (select number from deleted);
+DELETE FROM [Part_Temp_Rel] WHERE [Part_Temp_Rel] .[PrtNum] IN (select number from deleted);
+
+GO
+SET QUOTED_IDENTIFIER OFF 
+GO
+SET ANSI_NULLS ON 
+GO
+

@@ -1,0 +1,76 @@
+UserMenubar
+UserMenubar
+计算
+#
+ComputeAndEmluteButton
+ComputeAndEmluteButton
+一般计算(&C)
+#
+Adding a ComputeAndEmlute push button
+Adding a ComputeAndEmlute push button
+添加了一个按钮
+#
+FemMdlManage
+FemMdlManage
+有限元模型管理
+#
+open2Button
+open2Button
+打开有限元模型
+#
+Adding a open2Button push button
+Adding a open2Button push button
+添加一个打开按钮
+#
+save2Button
+save2Button
+保存到有限元模型
+#
+Adding a save2Button push button
+Adding a save2Button push button
+添加了一个保存按钮
+#
+FemAnalyseButton
+FemAnalyseButton
+有限元模型查找
+#
+Adding a FemAnalyse push button
+Adding a FemAnalyse push button
+添加了一个按钮
+#
+FemAnalyse1Button
+FemAnalyse1Button
+进入有限元环境
+#
+Adding a FemAnalyse1 push button
+Adding a FemAnalyse1 push button
+添加了一个按钮
+#
+FemAnalyse2Button
+FemAnalyse2Button
+有限元分析设置
+#
+Adding a FemAnalyse2 push button
+Adding a FemAnalyse2 push button
+添加了一个按钮
+#
+Auxiliary Tool
+Auxiliary Tool
+辅助工具(&U)
+#
+Tolerance Query
+Tolerance Query
+公差查询(&Q)
+#
+Point Select
+Point Select
+请单击鼠标选择表的位置
+#
+Machine UnNote
+Machine UnNote
+机械加工未注公差(&M)
+#
+OutputAsmDrawingDetail
+OutputAsmDrawingDetail
+生成零件目录表(&O)
+#

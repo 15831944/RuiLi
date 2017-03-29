@@ -1,0 +1,76 @@
+UserMenubar
+UserMenubar
+UserMenubar
+#
+ComputeAndEmluteButton
+ComputeAndEmluteButton
+ComputeAndEmluteButton(&C)
+#
+Adding a ComputeAndEmlute push button
+Adding a ComputeAndEmlute push button
+Adding a ComputeAndEmlute push button
+#
+FemMdlManage
+FemMdlManage
+FemMdlManage
+#
+open2Button
+open2Button
+open2Button
+#
+Adding a open2Button push button
+Adding a open2Button push button
+Adding a open2Button push button
+#
+save2Button
+save2Button
+save2Button
+#
+Adding a save2Button push button
+Adding a save2Button push button
+Adding a save2Button push button
+#
+FemAnalyseButton
+FemAnalyseButton
+FemAnalyseButton
+#
+Adding a FemAnalyse push button
+Adding a FemAnalyse push button
+Adding a FemAnalyse push button
+#
+FemAnalyse1Button
+FemAnalyse1Button
+FemAnalyse1Button
+#
+Adding a FemAnalyse1 push button
+Adding a FemAnalyse1 push button
+Adding a FemAnalyse1 push button
+#
+FemAnalyse2Button
+FemAnalyse2Button
+FemAnalyse2Button
+#
+Adding a FemAnalyse2 push button
+Adding a FemAnalyse2 push button
+Adding a FemAnalyse2 push button
+#
+Auxiliary Tool
+Auxiliary Tool
+Auxiliary Tool(&U)
+#
+Tolerance Query
+Tolerance Query
+Tolerance Query(&Q)
+#
+Point Select
+Point Select
+Point Select
+#
+Machine UnNote
+Machine UnNote
+Machine UnNote(&M)
+#
+OutputAsmDrawingDetail
+OutputAsmDrawingDetail
+OutputAsmDrawingDetail(&O)
+#

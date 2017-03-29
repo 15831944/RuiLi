@@ -1,0 +1,5 @@
+tempworkplacedlg.h
+asmtempopen.h
+asmtempsave.h
+menuopendlg.h
+partmdlopen.h

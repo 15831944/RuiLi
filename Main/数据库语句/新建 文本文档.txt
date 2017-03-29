@@ -1,0 +1,189 @@
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PartManageTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PartManageTable]
+GO
+
+CREATE TABLE [dbo].[PartManageTable] (
+	[Number] [int] IDENTITY (1, 1) NOT NULL ,
+	[FatherNumber] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Type] [char] (3) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Datatime] AS (getdate()) ,
+	[MdlCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[FileName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[FileDirectory] [varchar] (200) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[MdlerName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[MdlerDepartment] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partVariantTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partVariantTable]
+GO
+
+CREATE TABLE [dbo].[partVariantTable] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Type] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[IdNum] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimSymbol] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[ParaFeatName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[SubType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[UpLimit] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[DwLimit] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partPerfparaTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partPerfparaTable]
+GO
+
+CREATE TABLE [dbo].[partPerfparaTable] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partRelationSet]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partRelationSet]
+GO
+
+CREATE TABLE [dbo].[partRelationSet] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Relation] [varchar] (100) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PartRelativeDimParaTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PartRelativeDimParaTable]
+GO
+
+CREATE TABLE [dbo].[PartRelativeDimParaTable] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Type] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[IdNum] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimSymbol] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[SubType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partPic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partPic]
+GO
+
+CREATE TABLE [dbo].[partPic] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[IsMain] [int] NOT NULL 
+) ON [PRIMARY]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PartInsTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PartInsTable]
+GO
+
+CREATE TABLE [dbo].[PartInsTable] (
+	[PrtNum] [int] NOT NULL ,
+	[InsNum] [int] NOT NULL ,
+	[InsName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[InsCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[InsNote] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[InsCreateTime] AS (getdate()) ,
+	[InsCreaterName] [varchar] (30) COLLATE Chinese_PRC_CI_AS NULL ,
+	[InsCreateDpt] [varchar] (30) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partInsPerfValueTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partInsPerfValueTable]
+GO
+
+CREATE TABLE [dbo].[partInsPerfValueTable] (
+	[PrtNum] [int] NOT NULL ,
+	[InsNum] [int] NOT NULL ,
+	[Num] [int] NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[partInsValueTable]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[partInsValueTable]
+GO
+
+CREATE TABLE [dbo].[partInsValueTable] (
+	[PrtNum] [int] NOT NULL ,
+	[InsNum] [int] NOT NULL ,
+	[Num] [int] NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+
+
+CREATE TABLE [dbo].[Part_Temp_Mdl_Info] (
+	[Number] [int] IDENTITY (1, 1) NOT NULL ,
+	[FatherNum] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Type] [char] (3) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Datatime] [datetime] NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[FileName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[FileDirectory] [varchar] (200) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[MdlerName] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[MdlerDepartment] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[MdlFatherNum] [int] NULL ,
+	[MdlCode] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[MdlType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+CREATE TABLE [dbo].[Part_Temp_Para_Info] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Type] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[IdNum] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[DimSymbol] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[ParaFeatName] [varchar] (50) COLLATE Chinese_PRC_CI_AS NULL ,
+	[SubType] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[UpLimit] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[DwLimit] [varchar] (20) COLLATE Chinese_PRC_CI_AS NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+CREATE TABLE [dbo].[Part_Temp_Rel] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Relation] [varchar] (100) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+CREATE TABLE [dbo].[Part_Temp_Perf] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Value] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL 
+) ON [PRIMARY]
+GO
+CREATE TABLE [dbo].[Part_Temp_Pic] (
+	[PrtNum] [int] NOT NULL ,
+	[Number] [int] NOT NULL ,
+	[Name] [varchar] (50) COLLATE Chinese_PRC_CI_AS NOT NULL ,
+	[Note] [varchar] (150) COLLATE Chinese_PRC_CI_AS NULL ,
+	[IsMain] [int] NOT NULL 
+) ON [PRIMARY]
+GO

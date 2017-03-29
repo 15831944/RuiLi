@@ -1,0 +1,26 @@
+NAME       ansys
+EXEC_FILE  F:\ansys\Debug\ansys.dll
+TEXT_DIR   F:\ansys\Debug\text
+STARTUP    dll
+ALLOW_STOP TRUE
+DELAY_START TRUE
+REVISION   2002
+END
+
+NAME       variant
+EXEC_FILE  F:\Variant\variantdesign.dll
+TEXT_DIR   F:\Variant\text
+STARTUP    dll
+ALLOW_STOP TRUE
+DELAY_START TRUE
+REVISION   2002
+END
+
+NAME       Main
+EXEC_FILE  F:\Main\Debug\Main.dll
+TEXT_DIR   F:\Main\text
+STARTUP    dll
+ALLOW_STOP TRUE
+DELAY_START TRUE
+REVISION   2002
+END

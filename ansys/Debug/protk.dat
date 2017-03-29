@@ -1,0 +1,8 @@
+NAME       计算
+EXEC_FILE  F:\实验室成员\小陈波\ansysbackup\Debug\ansys.dll
+TEXT_DIR   F:\实验室成员\小陈波\ansysbackup\Debug\text
+STARTUP    dll
+ALLOW_STOP TRUE
+DELAY_START TRUE
+REVISION   2002
+END

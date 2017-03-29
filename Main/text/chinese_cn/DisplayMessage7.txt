@@ -1,0 +1,6 @@
+%CPSelect points.
+Select points.
+选择一个点.
+#
+
+

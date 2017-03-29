@@ -1,0 +1,232 @@
+USER %0s
+%0s
+#
+#
+DesignMenu
+DesignMenu
+变型设计(&M)
+#
+PartNewButton
+PartNewButton
+新建零件
+#
+Adding a PartNew push button
+Adding a PartNew push button
+重新开始设计一个零件
+#
+ProductUpLoadButton
+ProductUpLoadButton
+添加产品实例
+#
+Adding a Product UpLoad Product push button
+Adding a Product UpLoad Product push button
+向PDM添加产品实例
+#
+PartSubMenu
+PartSubMenu
+零件变型
+#
+PartModelSearchButton
+PartModelSearchButton
+零件模型查询
+#
+Adding a PartModelSearch push button
+Adding a PartModelSearch push button
+从数据库里查询模型
+#
+ProductSearchButton
+ProductSearchButton
+产品打开
+#
+Adding a ProductSearch push button
+Adding a ProductSearch push button
+从数据库里查询组件
+#
+PartSearchButton
+PartSearchButton
+零件打开
+#
+Adding a PartSearch push button
+Adding a PartSearch push button
+从数据库里查询零件
+#
+AlterButton
+AlterButton
+产品变型
+#
+Adding a Alter Product push button
+Adding a Alter Product push button
+对当前模型或产品进行修改得到新产品
+#
+PartAlterButton
+PartAlterButton
+零件变型
+#
+Adding a Alter Part push button
+Adding a Alter Part push button
+修改零件按钮
+#
+AsmModelSearchButton
+AsmModelSearchButton
+新建产品
+#
+Adding a AsmModelSearch push button
+Adding a AsmModelSearch push button
+查询当前的组件模型
+#
+ProductSubMenu
+ProductSubMenu
+产品变型
+#
+PartSaveAsButton
+PartSaveAsButton
+零件保存为
+#
+Adding a SaveAs Part push button
+Adding a SaveAs Part push button
+零件另存为按钮
+#
+PartSaveButton
+PartSaveButton
+零件保存
+#
+Adding a Save Part push button
+Adding a Save Part push button
+零件保存按钮
+#
+PartOpenButton
+PartOpenButton
+零件打开
+#
+Adding a Open Part push button
+Adding a Open Part push button
+打开零件实例按钮
+#
+DisplayDwgButton
+DisplayDwgButton
+显示工程图(&D)
+#
+Adding a DisplayDwg push button
+Adding a DisplayDwg push button
+显示二维图纸的按钮
+#
+DisplaySolidButton
+DisplaySolidButton
+显示三维图(&T)
+#
+Adding a DisplaySolid push button
+Adding a DisplaySolid push button
+显示三维图的按钮
+#
+CheckButton
+CheckButton
+审核零件
+#
+Adding a Check push button
+Adding a Check push button
+检查已设计完实例的按钮
+#
+PartDeleteButton
+PartDeleteButton
+零件删除
+#
+Adding a Delete Part push button
+Adding a Delete Part push button
+零件删除按钮
+#
+ReplaceModelLabel
+ReplaceModel
+替换
+#
+ReplaceModelHelp
+ReplaceModelHelp
+替换帮助
+#
+ProductSaveAsButton
+ProductSaveAsButton
+产品另存为
+#
+Adding a Product Save As push button
+Adding a Product Save As push button
+产品另存为按钮
+#
+ProductSaveButton
+ProductSaveButton
+产品保存
+#
+Adding a Product Save push button
+Adding a Product Save push button
+产品保存按钮
+#
+EraseButton1
+EraseButton
+释放内存(&E)
+#
+Adding a Check push button1
+Adding a Check push button
+拭除内存按钮
+#
+CloseWindowsButton
+CloseWindowsButton
+关闭窗口(&C)
+#
+Adding a CloseWindows button
+Adding a CloseWindows button
+关闭窗口按钮
+#
+ProductCheckButton
+ProductCheckButton
+产品审核
+#
+Adding a Product Check Product push button
+Adding a Product Check Product push button
+产品审核对话框
+#
+ProductDeleteButton
+ProductDeleteButton
+产品/零件删除
+#
+Adding a Product Delete Product push button
+Adding a Product Delete Product push button
+删除产品/零件按钮
+#
+OperateDrwButton
+OperateDrwButton
+明细表操作(&L)
+#
+Adding a OperateDrwButton push button
+Adding a OperateDrwButton push button
+对二维图的明细表进行操作
+#
+ProductProcessButton
+ProductProcessButton
+产品设计状态
+#
+Adding a ProductProcessButton push button1
+Adding a ProductProcessButton push button1
+查看产品设计进度
+#
+IntegrateDrwButton
+IntegrateDrwButton
+PDM和VDS集成
+#
+Adding a IntegrateDrwButton push button
+Adding a IntegrateDrwButton push button
+PDM和VDS集成
+#
+AddToPDMButton
+AddToPDMButton
+提交PDM
+#
+Adding a PDM button
+Adding a PDM button
+添加到PDM的按钮
+#
+ProjButton
+ProjButton
+查看项目任务
+#
+Adding a Proj push button
+Adding a Proj push button
+查看项目任务
+#

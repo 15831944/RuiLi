@@ -1,0 +1,24 @@
+Ch7Example
+&Ch7Example
+第7章实例(&C)
+#
+
+Example7-1
+Example7-1(&E)...
+例7-1(&E)...
+#
+
+Parameter test
+Parameter test(Example7-1) 
+参数测试(例7-1)
+#
+
+Example7-2
+Example7-2(&A)...
+例7-2(&A)...
+#
+
+Parameterized Programming
+Parameterized Programming(Example7-2) 
+参数化设计程序(例7-2)
+#
